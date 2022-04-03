@@ -1,8 +1,5 @@
 # Language Models
-This analysis of language models uses a simplified version of `minGPT`:
-```
-https://github.com/karpathy/minGPT/
-```
+This analysis of language models uses a simplified version of [minGPT](https://github.com/karpathy/minGPT/).
 
 ## Train
 Run training:
@@ -10,7 +7,7 @@ Run training:
 python main_train.py
 ```
 
-Plot probability distribution:
+Plot the probability distribution:
 ```shell
 python main_plot.py
 ```

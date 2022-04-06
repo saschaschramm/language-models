@@ -34,6 +34,7 @@ def sample(model, x, steps, temperature=1.0, sample=False, top_k=None):
             x if x.size(1) <= block_size else x[:, -block_size:]
         )  # crop context if needed
         logits, _ = model(x_cond)
+        
         # pluck the logits at the final step and scale by temperature
         logits = logits[:, -1, :] / temperature
         # optionally crop probabilities to only the top k options

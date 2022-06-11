@@ -182,10 +182,13 @@ class GPT(nn.Module):
 
         b, t = idx.size() # shape = (1, 6)
         assert t <= self.block_size, "Cannot forward, model block size is exhausted."
+        # block_size = 5
 
-        # forward the GPT model
         token_embeddings = self.tok_emb(idx) # each index maps to a (learnable) vector
+        # shape = (1, 4, 128)
+        # shape = (1, 5, 128)
         position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
+
         x = self.drop(token_embeddings + position_embeddings)
         x = self.blocks(x)
         x = self.ln_f(x)
@@ -195,8 +198,5 @@ class GPT(nn.Module):
         loss = None
         if targets is not None:
             # logits.size = [1, 6, 10] = (batch_size, block_size, len_vocab)
-            # print(logits.size())
             loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
-            #print('loss.size', loss.item().size)
-
         return logits, loss
